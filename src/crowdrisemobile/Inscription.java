@@ -15,8 +15,10 @@ import javax.microedition.midlet.*;
 /**
  * @author kouki
  */
-public class Inscription extends MIDlet implements CommandListener, Runnable{
- Display disp = Display.getDisplay(this);
+public class Inscription extends MIDlet implements CommandListener, Runnable {
+
+    Display disp = Display.getDisplay(this);
+    MIDlet m ;
     //Form 1
     Form f1 = new Form("Inscription");
     TextField tfNom = new TextField("nom", null, 100, TextField.ANY);
@@ -25,9 +27,9 @@ public class Inscription extends MIDlet implements CommandListener, Runnable{
     TextField tfMail = new TextField("Mail", null, 100, TextField.ANY);
     TextField tfpass = new TextField("Mot de passe", null, 100, TextField.ANY);
     TextField tfconfpass = new TextField("Confirmer mot de passe", null, 100, TextField.ANY);
-    String[] choix = {"Submitter","Solver"};
+    String[] choix = {"Submitter", "Solver"};
     ChoiceGroup choice = new ChoiceGroup("Role", Choice.EXCLUSIVE, choix, null);
-    
+
     Command cmdValider = new Command("valider", Command.SCREEN, 0);
     Command cmdBack = new Command("cmdBack", Command.BACK, 0);
 
@@ -42,6 +44,10 @@ public class Inscription extends MIDlet implements CommandListener, Runnable{
     String url = "http://localhost/PidevJ2ME/ajout.php";
     StringBuffer sb = new StringBuffer();
     int ch;
+
+    public Inscription() {
+        
+    }
 
     public void startApp() {
         f1.append(tfNom);
@@ -71,32 +77,34 @@ public class Inscription extends MIDlet implements CommandListener, Runnable{
             th.start();
         }
         if (c == cmdBack) {
-            
+
             disp.setCurrent(f1);
         }
     }
 
     public void run() {
-        try {  
-            
-            if(choice.getString(ch)=="solver"){}
-                
-                
-                hc = (HttpConnection) Connector.open(url+"?nom="+tfNom.getString().trim()+"&prenom="+tfPrenom.getString().trim()+"&username="+tfauthentifiant.getString().trim()+"&email="+tfMail.getString().trim()+"&password="+tfpass.getString().trim());
-                dis = new DataInputStream(hc.openDataInputStream());
-                while ((ch = dis.read()) != -1) {
-                    sb.append((char)ch);
-                }
-                if ("OK".equals(sb.toString().trim())) {
-                    disp.setCurrent(f2);
-                }else{
-                    disp.setCurrent(f3);
-                }
-                sb = new StringBuffer();
-                }catch (IOException ex) {
-                ex.printStackTrace();
+        try {
+            String role;
+            if ("Solver".equals(choice.getString(choice.getSelectedIndex()))) {
+                role = "a:1:{i:0;s:11:\"ROLE_SOLVER\";}";
+
+            } else {
+                role = "a:1:{i:0;s:11:\"ROLE_SUBMITTER\";}";
             }
+
+            hc = (HttpConnection) Connector.open(url + "?nom=" + tfNom.getString().trim() + "&prenom=" + tfPrenom.getString().trim() + "&username=" + tfauthentifiant.getString().trim() + "&email=" + tfMail.getString().trim() + "&password=" + tfpass.getString().trim() + "&role=" + role);
+            dis = new DataInputStream(hc.openDataInputStream());
+            while ((ch = dis.read()) != -1) {
+                sb.append((char) ch);
+            }
+            if ("OK".equals(sb.toString().trim())) {
+                disp.setCurrent(f2);
+            } else {
+                disp.setCurrent(f3);
+            }
+            sb = new StringBuffer();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 }
-
-
