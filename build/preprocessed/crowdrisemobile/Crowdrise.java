@@ -7,6 +7,8 @@
 package crowdrisemobile;
 
 import GUI.Login;
+import GUI.Solutions;
+import Splash.SplashScreen;
 import java.io.DataInputStream;
 import javax.microedition.io.HttpConnection;
 import javax.microedition.lcdui.Command;
@@ -17,17 +19,18 @@ import javax.microedition.midlet.*;
 /**
  * @author kouki
  */
-public class Projet extends MIDlet {
-   Display disp = Display.getDisplay(this);
-  
-
+public class Crowdrise extends MIDlet {
+  public Display disp = Display.getDisplay(this);
+  public static Crowdrise Instance = null;
    
 
     public void startApp() {
 
-        Login form1 = new Login("Acceuil", disp);
-
-        disp.setCurrent(form1);
+//        Login form1 = new Login("Acceuil", disp);
+//
+//        disp.setCurrent(form1);
+        Instance = this;
+        disp.setCurrent(new SplashScreen(this));
     }
 
     public void pauseApp() {

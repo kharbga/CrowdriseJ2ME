@@ -6,7 +6,7 @@
 package GUI;
 
 import GUI.Acceuil;
-import crowdrisemobile.Inscription;
+
 import entities.Membre;
 import entityhandlers.MembreHandler;
 import java.io.DataInputStream;
