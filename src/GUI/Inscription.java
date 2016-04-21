@@ -3,24 +3,35 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package crowdrisemobile;
+package GUI;
 
 import java.io.DataInputStream;
 import java.io.IOException;
 import javax.microedition.io.Connector;
 import javax.microedition.io.HttpConnection;
-import javax.microedition.lcdui.*;
-import javax.microedition.midlet.*;
+import javax.microedition.lcdui.Choice;
+import javax.microedition.lcdui.ChoiceGroup;
+import javax.microedition.lcdui.Command;
+import javax.microedition.lcdui.CommandListener;
+import javax.microedition.lcdui.Display;
+import javax.microedition.lcdui.Displayable;
+import javax.microedition.lcdui.Form;
+import javax.microedition.lcdui.List;
+import javax.microedition.lcdui.TextField;
 
 /**
+ *
  * @author kouki
  */
-public class Inscription extends MIDlet implements CommandListener, Runnable {
+public class Inscription  extends Form implements CommandListener,Runnable {
+   
+    HttpConnection hc;
+    DataInputStream dis;
+    String url = "http://localhost/PidevJ2ME/ajout.php";
+    StringBuffer sb = new StringBuffer();
+    int ch;
+    Display disp ;
 
-    Display disp = Display.getDisplay(this);
-    MIDlet m ;
-    //Form 1
-    Form f1 = new Form("Inscription");
     TextField tfNom = new TextField("nom", null, 100, TextField.ANY);
     TextField tfPrenom = new TextField("prenom", null, 100, TextField.ANY);
     TextField tfauthentifiant = new TextField("Authentifiant", null, 100, TextField.ANY);
@@ -29,59 +40,37 @@ public class Inscription extends MIDlet implements CommandListener, Runnable {
     TextField tfconfpass = new TextField("Confirmer mot de passe", null, 100, TextField.ANY);
     String[] choix = {"Submitter", "Solver"};
     ChoiceGroup choice = new ChoiceGroup("Role", Choice.EXCLUSIVE, choix, null);
-
+  
     Command cmdValider = new Command("valider", Command.SCREEN, 0);
     Command cmdBack = new Command("cmdBack", Command.BACK, 0);
-
-    Form f2 = new Form("Welcome");
-    Form f3 = new Form("Login ou mot de passe incorrect");
-
-    Alert alerta = new Alert("Error", "Sorry", null, AlertType.ERROR);
-
-    //Connexion
-    HttpConnection hc;
-    DataInputStream dis;
-    String url = "http://localhost/PidevJ2ME/ajout.php";
-    StringBuffer sb = new StringBuffer();
-    int ch;
-
-    public Inscription() {
+    
+    public Inscription(String title,Display d) {
+        super(title);
         
+  append(tfNom);
+  append(tfPrenom);
+  append(tfauthentifiant);
+  append(tfMail);
+  append(tfpass);
+  append(tfconfpass);
+  append(choice);
+  addCommand(cmdValider);
+  setCommandListener(this);
+
+        disp=d;
     }
 
-    public void startApp() {
-        f1.append(tfNom);
-        f1.append(tfPrenom);
-        f1.append(tfauthentifiant);
-        f1.append(tfMail);
-        f1.append(tfpass);
-        f1.append(tfconfpass);
-        f1.append(choice);
-        f1.addCommand(cmdValider);
-        f1.setCommandListener(this);
-        f2.addCommand(cmdBack);
-        f3.addCommand(cmdBack);
-        f2.setCommandListener(this);
-        disp.setCurrent(f1);
-    }
-
-    public void pauseApp() {
-    }
-
-    public void destroyApp(boolean unconditional) {
-    }
-
-    public void commandAction(Command c, Displayable d) {
+   
+        public void commandAction(Command c, Displayable d) {
         if (c == cmdValider) {
-            Thread th = new Thread(this);
+            Thread th = new Thread((Runnable) this);
             th.start();
         }
         if (c == cmdBack) {
 
-            disp.setCurrent(f1);
+            
         }
     }
-
     public void run() {
         try {
             String role;
@@ -98,13 +87,14 @@ public class Inscription extends MIDlet implements CommandListener, Runnable {
                 sb.append((char) ch);
             }
             if ("OK".equals(sb.toString().trim())) {
-                disp.setCurrent(f2);
+                append("ok");
             } else {
-                disp.setCurrent(f3);
+                append("pas ok");
             }
             sb = new StringBuffer();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
+    
 }

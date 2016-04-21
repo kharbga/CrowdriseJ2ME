@@ -1,4 +1,5 @@
 MIDlet-2: Login, , crowdrisemobile.Login
+MIDlet-3: Projet, , crowdrisemobile.Projet
 MIDlet-1: Inscription, , crowdrisemobile.Inscription
 MIDlet-Vendor: Vendor
 MIDlet-Version: 1.0

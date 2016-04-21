@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package crowdrisemobile;
-import crowdrisemobile.Inscription;
+package GUI;
+
+import GUI.Acceuil;
+
 import entities.Membre;
 import entityhandlers.MembreHandler;
 import java.io.DataInputStream;
@@ -25,41 +27,33 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.SAXException;
 
-public class Login extends MIDlet implements CommandListener, Runnable {
+public class Login extends Form implements CommandListener, Runnable {
 
-    Display disp = Display.getDisplay(this);
-    //Form 1
-    Form f1 = new Form("Bienvenue sur CrowdRise!");
+    Display disp;
+
     TextField tfauthentifiant = new TextField("Authentifiant", null, 100, TextField.ANY);
     TextField tfpass = new TextField("Mot de passe", null, 100, TextField.PASSWORD);
     Command cmdValider = new Command("valider", Command.SCREEN, 0);
     Command cmdInscription = new Command("Inscription", Command.SCREEN, 0);
     Command cmdBack = new Command("cmdBack", Command.BACK, 0);
     Alert alerta = new Alert("Error", "Sorry", null, AlertType.ERROR);
-    Form f2 = new Form("Welcome");
-    Form f3 = new Form("Login ou mot de passe incorrect");
+
     Membre[] Membres;
-    
+
     HttpConnection hc;
     DataInputStream dis;
     String url = "http://localhost/PidevJ2ME/login.php";
     StringBuffer sb = new StringBuffer();
     int ch;
 
-    public void startApp() {
-
-        f1.append(tfauthentifiant);
-        f1.append(tfpass);
-        f1.addCommand(cmdValider);
-        f1.addCommand(cmdInscription);
-        f1.setCommandListener(this);
-        disp.setCurrent(f1);
-    }
-
-    public void pauseApp() {
-    }
-
-    public void destroyApp(boolean unconditional) {
+    public Login(String title, Display d) {
+        super(title);
+        append(tfauthentifiant);
+        append(tfpass);
+        addCommand(cmdValider);
+        addCommand(cmdInscription);
+        setCommandListener(this);
+        disp = d;
     }
 
     public void commandAction(Command c, Displayable d) {
@@ -69,16 +63,13 @@ public class Login extends MIDlet implements CommandListener, Runnable {
         }
         if (c == cmdBack) {
 
-            disp.setCurrent(f1);
+            disp.setCurrent(this);
         }
-         if (c == cmdInscription) {
-            
-            try {
-                Class.forName("crowdrisemobile.Inscription");
-            } catch (ClassNotFoundException ex) {
-                ex.printStackTrace();
-            }
-            
+        if (c == cmdInscription) {
+
+            GUI.Inscription form1 = new GUI.Inscription("Inscription", disp);
+            disp.setCurrent(form1);
+
         }
     }
 
@@ -91,9 +82,11 @@ public class Login extends MIDlet implements CommandListener, Runnable {
             parser.parse(dis, MembresHandler);
             Membres = MembresHandler.getMembre();
             if (Membres.length > 0) {
-                disp.setCurrent(f2);
+                Acceuil form1 = new Acceuil("Inscription", disp);
+                disp.setCurrent(form1);
             } else {
-                disp.setCurrent(f3);
+                Acceuil form1 = new Acceuil("Inscription", disp);
+                disp.setCurrent(form1);
             }
         } catch (IOException ex) {
             ex.printStackTrace();
