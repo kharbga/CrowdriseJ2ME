@@ -1,0 +1,7 @@
+MIDlet-2: AudioMIdlet, , crowdrisemobile.AudioMIdlet
+MIDlet-1: Projet, ,crowdrisemobile.Crowdrise
+MIDlet-Vendor: Vendor
+MIDlet-Version: 1.0
+MIDlet-Name: CrowdriseMobile
+MicroEdition-Configuration: CLDC-1.1
+MicroEdition-Profile: MIDP-2.1
