@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import DAO.ProblemeDAO;
 import DAO.SolutionDAO;
 import crowdrisemobile.Crowdrise;
 import entities.Probleme;
@@ -31,8 +32,8 @@ public class Demande extends Form implements CommandListener, Runnable {
 
     Command cmdAdd = new Command("Confirm", Command.SCREEN, 0);
     Command cmdBack = new Command("Back", Command.EXIT, 0);
-
-    public Demande() {
+    String titreProb;
+    public Demande(String p) {
         super("Ajout Demande");
 
         append(tf_title);
@@ -41,6 +42,9 @@ public class Demande extends Form implements CommandListener, Runnable {
         addCommand(cmdAdd);
         addCommand(cmdBack);
         setCommandListener(this);
+        Thread th = new Thread(this);
+        th.start();
+        titreProb = p;
     }
 
     public void commandAction(Command c, Displayable d) {
@@ -53,13 +57,14 @@ public class Demande extends Form implements CommandListener, Runnable {
         }
 
     }
-
     public void run() {
+        int id = new ProblemeDAO().selectProbByTitre(titreProb);
+        System.out.println(id);
         String title = tf_title.getString();
         double renum = Double.parseDouble(tf_salaire.getString());
         String desc = tf_desc.getString();
         
-        boolean result = new SolutionDAO().insert(title, renum, desc);
+        boolean result = new SolutionDAO().insert(id,title, renum, desc);
         Alert alert = new Alert("Result");
         if (result) {
             alert.setType(AlertType.CONFIRMATION);

@@ -19,6 +19,9 @@ public class SolutionHandler extends DefaultHandler {
 
     private Vector SolutionVector;
     String titreTag = "close";
+    String descTag = "close";
+    String salaireTag = "close";
+    String etatTag = "close";
 
     public SolutionHandler() {
         SolutionVector = new Vector();
@@ -35,21 +38,36 @@ public class SolutionHandler extends DefaultHandler {
     Solution seclectedSolution;
 
     public void startElement(String string, String string1, String qName, Attributes atrbts) throws SAXException {
-        if (qName.equals("Titre")) {
+        if (qName.equals("Solution")) {
             seclectedSolution = new Solution();
             seclectedSolution.setTitre(atrbts.getValue("titre"));
+            seclectedSolution.setDescription(atrbts.getValue("description"));
+            seclectedSolution.setSalaire(Double.parseDouble(atrbts.getValue("salaire")));
+            seclectedSolution.setEtat(atrbts.getValue("etat"));
         } else if (qName.equals("titre")) {
             titreTag = "open";
+        }else if (qName.equals("description")) {
+            descTag = "open";
+        }else if (qName.equals("salaire")) {
+            salaireTag = "open";
+        }else if (qName.equals("etat")) {
+            etatTag = "open";
         }
     }
 
     public void endElement(String string, String string1, String qName) throws SAXException {
-        if (qName.equals("Titre")) {
+        if (qName.equals("Solution")) {
 
             SolutionVector.addElement(seclectedSolution);
             seclectedSolution = null;
         } else if (qName.equals("titre")) {
             titreTag = "close";
+        }else if (qName.equals("description")) {
+            descTag = "close";
+        }else if (qName.equals("salaire")) {
+            salaireTag = "close";
+        }else if (qName.equals("etat")) {
+            etatTag = "close";
         }
 
     }
@@ -59,6 +77,18 @@ public class SolutionHandler extends DefaultHandler {
             if (titreTag.equals("titre")) {
                 String titre = new String(ch, start, length).trim();
                 seclectedSolution.setTitre(titre);
+            }
+            if (descTag.equals("description")) {
+                String desc = new String(ch, start, length).trim();
+                seclectedSolution.setDescription(desc);
+            }
+            if (salaireTag.equals("salaire")) {
+                String salaire = new String(ch, start, length).trim();
+                seclectedSolution.setTitre(salaire);
+            }
+            if (etatTag.equals("etat")) {
+                String etat = new String(ch, start, length).trim();
+                seclectedSolution.setTitre(etat);
             }
         }
     }

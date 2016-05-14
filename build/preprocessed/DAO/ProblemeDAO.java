@@ -6,6 +6,7 @@
 package DAO;
 
 import entities.Probleme;
+import entityhandlers.ProblemIdHandler;
 import entityhandlers.ProblemsHandler;
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -22,6 +23,7 @@ import org.xml.sax.SAXException;
  */
 public class ProblemeDAO {
     public Probleme[] probTab; 
+    public Probleme prob;
     public Probleme[] select(){
        try {
             ProblemsHandler probHandler = new ProblemsHandler();
@@ -44,5 +46,28 @@ public class ProblemeDAO {
 
              return probTab;
    }
-    
+    public int selectProbByTitre(String p){
+        int id=0;
+       try {
+           System.out.println(p);
+            ProblemIdHandler probHandler = new ProblemIdHandler();
+            // get a parser object
+            SAXParser SAXparser = SAXParserFactory.newInstance().newSAXParser();
+            // get an InputStream from somewhere (could be HttpConnection, for example)
+            HttpConnection hc = (HttpConnection) Connector.open("http://localhost/parsing/selectProbByTitre.php?titre="+p);//people.xml est un exemple
+            DataInputStream dis = new DataInputStream(hc.openDataInputStream());
+            SAXparser.parse(dis, probHandler);
+            // display the result
+            probTab = probHandler.getProbleme();
+            id = probTab[0].getIdProbleme();         
+        } catch (ParserConfigurationException ex) {
+            ex.printStackTrace();
+        } catch (SAXException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+             return id;
+   }
 }

@@ -21,9 +21,11 @@ import javax.microedition.midlet.MIDletStateChangeException;
  */
 public class Solutions extends List implements CommandListener, Runnable {
 
+    Probleme[] Prob;
     Command cmdAdd = new Command("Solution", Command.SCREEN, 0);
     Command cmdOffre = new Command("Offre", Command.SCREEN, 0);
     Command cmdExit = new Command("Sortir", Command.EXIT, 0);
+    StringBuffer sb = new StringBuffer();
 
     public Solutions() {
         super("Liste Problème", List.IMPLICIT);
@@ -38,10 +40,12 @@ public class Solutions extends List implements CommandListener, Runnable {
 
     public void commandAction(Command c, Displayable d) {
         if (c == cmdAdd) {
-            Crowdrise.Instance.disp.setCurrent(new Demande());
+            Crowdrise.Instance.disp.setCurrent(new Demande(Prob[this.getSelectedIndex()].getTitre()));
         }
         if (c == cmdOffre) {
-            Crowdrise.Instance.disp.setCurrent(new Offre());
+            
+            Crowdrise.Instance.disp.setCurrent(new Offre(Prob[this.getSelectedIndex()].getTitre()));
+            
         }
         if (c == cmdExit) {
             Crowdrise.Instance.notifyDestroyed();
@@ -49,7 +53,7 @@ public class Solutions extends List implements CommandListener, Runnable {
     }
 
     public void run() {
-        Probleme[] Prob = new ProblemeDAO().select();
+        Prob = new ProblemeDAO().select();
         if (Prob.length > 0) {
             for (int i = 0; i < Prob.length; i++) {
 //                System.out.println(Prob.length);
@@ -58,5 +62,4 @@ public class Solutions extends List implements CommandListener, Runnable {
             }
         }
     }
-
 }

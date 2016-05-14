@@ -25,9 +25,11 @@ import org.xml.sax.SAXException;
  */
 public class SolutionDAO {
 
-    public boolean insert(String titre, double renum, String desc) {
+    public boolean insert(int id,String titre, double renum, String desc) {
+       
         try {
-            HttpConnection hc = (HttpConnection) Connector.open("http://localhost/parsing/solutionAdd.php?titre=" + titre + "&renum=" + renum + "&desc=" + desc);
+            System.out.println(id+titre+renum+desc);
+            HttpConnection hc = (HttpConnection) Connector.open("http://localhost/parsing/solutionAdd.php?titre=" + titre + "&renum=" + renum + "&desc=" + desc+ "&id=" + id);
             DataInputStream dis = new DataInputStream(hc.openDataInputStream());
             StringBuffer sb = new StringBuffer();
             int ch;
@@ -68,4 +70,29 @@ public class SolutionDAO {
 
         return SolutionTab;
     }
+    
+    public Solution[] selectSolution(String p) {
+
+        try {
+            SolutionHandler solHandler = new SolutionHandler();
+            // get a parser object
+            SAXParser SAXparser = SAXParserFactory.newInstance().newSAXParser();
+            // get an InputStream from somewhere (could be HttpConnection, for example)
+            System.out.println(p+"***************");
+            HttpConnection hc = (HttpConnection) Connector.open("http://localhost/parsing/SolutionList.php?titre="+p);//people.xml est un exemple
+            DataInputStream dis = new DataInputStream(hc.openDataInputStream());
+            SAXparser.parse(dis, solHandler);
+            // display the result
+            SolutionTab = solHandler.getSolution();
+
+        } catch (ParserConfigurationException ex) {
+            ex.printStackTrace();
+        } catch (SAXException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+        return SolutionTab;
+    } 
 }
