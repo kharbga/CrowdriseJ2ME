@@ -15,6 +15,7 @@ public class MembreHandler extends DefaultHandler {
     String userTag = "close";
     String mailTag = "close";
     String passTag = "close";
+    String roleTag = "close";
 
     public MembreHandler() {
         membres = new Vector();
@@ -38,6 +39,10 @@ public class MembreHandler extends DefaultHandler {
             currentMembre.setId(Integer.parseInt(attributes.getValue("id")));
             currentMembre.setNom(attributes.getValue("nom"));
             currentMembre.setPrenom(attributes.getValue("prenom"));
+            currentMembre.setEmail(attributes.getValue("email"));
+            currentMembre.setPassword(attributes.getValue("password"));
+            currentMembre.setUsername(attributes.getValue("username"));
+           
             /**
              * *
              */
@@ -54,12 +59,14 @@ public class MembreHandler extends DefaultHandler {
             mailTag = "open";
         } else if (qName.equals("password")) {
             passTag = "open";
+        } else if (qName.equals("role")) {
+            roleTag = "open";
         }
     }
 
     public void endElement(String uri, String localName, String qName) throws SAXException {
 
-        if (qName.equals("person")) {
+        if (qName.equals("Membre")) {
             // we are no longer processing a <reg.../> tag
             membres.addElement(currentMembre);
             currentMembre = null;
@@ -75,6 +82,8 @@ public class MembreHandler extends DefaultHandler {
             mailTag = "close";
         } else if (qName.equals("password")) {
             passTag = "close";
+         } else if (qName.equals("role")) {
+            roleTag = "close";
         }
     }
     // "characters" are the text between tags
@@ -101,6 +110,9 @@ public class MembreHandler extends DefaultHandler {
             } else if (passTag.equals("open")) {
                 String pass = new String(ch, start, length).trim();
                 currentMembre.setPassword(pass);
+            } else if (roleTag.equals("open")) {
+                String role = new String(ch, start, length).trim();
+                currentMembre.setRoles(role);
             }
         }
     }

@@ -29,6 +29,10 @@ public class Probleme {
 
     private int MembreId;
 
+    public Probleme(String titre) {
+        this.titre = titre;
+    }
+
     public Probleme() {
     }
 

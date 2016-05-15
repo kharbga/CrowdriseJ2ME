@@ -1,0 +1,10 @@
+MIDlet-1: Inscription, , crowdrisemobile.Inscription
+MIDlet-2: Login, , crowdrisemobile.Login
+MIDlet-3: Projet, , crowdrisemobile.Projet
+MIDlet-Jar-Size: 21101
+MIDlet-Jar-URL: CrowdriseMobile.jar
+MIDlet-Name: CrowdriseMobile
+MIDlet-Vendor: Vendor
+MIDlet-Version: 1.0
+MicroEdition-Configuration: CLDC-1.1
+MicroEdition-Profile: MIDP-2.1
