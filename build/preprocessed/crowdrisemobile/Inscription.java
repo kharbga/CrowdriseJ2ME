@@ -77,7 +77,9 @@ public class Inscription extends MIDlet implements CommandListener, Runnable{
     }
 
     public void run() {
-        try {
+        try {  
+            
+            if(choice.getString(ch)=="solver"){}
                 
                 
                 hc = (HttpConnection) Connector.open(url+"?nom="+tfNom.getString().trim()+"&prenom="+tfPrenom.getString().trim()+"&username="+tfauthentifiant.getString().trim()+"&email="+tfMail.getString().trim()+"&password="+tfpass.getString().trim());
