@@ -56,8 +56,8 @@ public class Login extends Form implements CommandListener, Runnable {
 
     public void commandAction(Command c, Displayable d) {
         if (c == cmdValider) {
-            Thread th = new Thread(this);
-            th.start();
+            GUI.Acceuil form1 = new GUI.Acceuil("Acceuil", disp);
+            disp.setCurrent(form1);
         }
         if (c == cmdBack) {
 

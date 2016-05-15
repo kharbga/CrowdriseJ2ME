@@ -7,10 +7,25 @@
 package crowdrisemobile;
 
 import GUI.Login;
-import javax.microedition.lcdui.Command;
+
+import java.util.Hashtable;
+import java.util.Enumeration;
+
+import javax.microedition.lcdui.Item;
+import javax.microedition.lcdui.List;
+import javax.microedition.lcdui.Form;
+import javax.microedition.lcdui.Alert;
+import javax.microedition.midlet.MIDlet;
 import javax.microedition.lcdui.Display;
+import javax.microedition.lcdui.Command;
 import javax.microedition.lcdui.Displayable;
-import javax.microedition.midlet.*;
+import javax.microedition.lcdui.CommandListener;
+
+import javax.microedition.media.Player;
+import javax.microedition.media.Control;
+import javax.microedition.media.Manager;
+import javax.microedition.media.PlayerListener;
+import javax.microedition.media.control.VideoControl;
 
 /**
  * @author kouki
@@ -23,7 +38,7 @@ public class Crowdrise extends MIDlet {
 
     public void startApp() {
 
-        Login form1 = new Login("Acceuil", disp);
+        Login form1 = new Login("Connexion", disp);
 
         disp.setCurrent(form1);
     }

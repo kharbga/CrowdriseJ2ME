@@ -10,30 +10,42 @@ import javax.microedition.lcdui.CommandListener;
 import javax.microedition.lcdui.Display;
 import javax.microedition.lcdui.Displayable;
 import javax.microedition.lcdui.Form;
-import javax.microedition.lcdui.Image;
+
 
 /**
  *
  * @author kouki
  */
-public class Acceuil extends Form implements CommandListener,Runnable {
-Display dis;
-Command cmdParse = new Command("Projets", Command.SCREEN, 0);
-    public Acceuil(String title,Display d) {
+public class Acceuil extends Form implements CommandListener, Runnable {
+
+    Display disp;
+    Command cmdProjet = new Command("Projets", Command.OK, 0);
+    Command cmdDeconexion = new Command("Deconexion", Command.EXIT, 0);
+
+    public Acceuil(String title, Display d) {
         super(title);
-        dis=d;
-        addCommand(cmdParse);
+        disp = d;
+        addCommand(cmdProjet);
+        addCommand(cmdDeconexion);
+        setCommandListener(this);
+        
     }
 
     public void commandAction(Command c, Displayable d) {
-        if (c == cmdParse) {
-            
-            Thread th = new Thread(this);
-            th.start();
-        }    }
+        if (c == cmdProjet) {
+
+             ListeProjet form1 = new ListeProjet("Liste des Porjets", disp);
+            disp.setCurrent(form1);
+        }
+        if (c == cmdDeconexion) {
+
+            Login form1 = new Login("Connexion", disp);
+            disp.setCurrent(form1);
+        }
+    }
 
     public void run() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }
