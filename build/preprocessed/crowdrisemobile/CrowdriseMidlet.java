@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package crowdrisemobile;
 
 import GUI.Login;
@@ -19,18 +18,22 @@ import javax.microedition.midlet.*;
 /**
  * @author kouki
  */
-public class Crowdrise extends MIDlet {
-  public Display disp = Display.getDisplay(this);
-  public static Crowdrise Instance = null;
-   
+public class CrowdriseMidlet extends MIDlet {
+
+    public Display disp;
+    public static CrowdriseMidlet mMidlet;
+
+    public CrowdriseMidlet() {
+
+        disp = Display.getDisplay(this);
+    }
 
     public void startApp() {
 
-        Affiche form1 = new Affiche("Acceuil", disp);
+       
+        disp.setCurrent(new Login("login",disp));
+       
 
-        disp.setCurrent(form1);
-//        Instance = this;
-//        disp.setCurrent(new SplashScreen(this));
     }
 
     public void pauseApp() {

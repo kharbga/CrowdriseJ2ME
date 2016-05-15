@@ -5,7 +5,7 @@
  */
 package GUI;
 
-import crowdrisemobile.Crowdrise;
+import crowdrisemobile.CrowdriseMidlet;
 import javax.microedition.lcdui.Command;
 import javax.microedition.lcdui.CommandListener;
 import javax.microedition.lcdui.Displayable;
@@ -27,7 +27,7 @@ public class AfficherOffre extends List implements CommandListener, Runnable {
 
     public void commandAction(Command c, Displayable d) {
         if (c == cmdBack) {
-            Crowdrise.Instance.disp.setCurrent(new Solutions());
+            CrowdriseMidlet.mMidlet.disp.setCurrent(new Solutions());
         }
     }
 

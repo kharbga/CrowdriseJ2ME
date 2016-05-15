@@ -7,7 +7,7 @@ package GUI;
 
 import DAO.ProblemeDAO;
 import DAO.SolutionDAO;
-import crowdrisemobile.Crowdrise;
+import crowdrisemobile.CrowdriseMidlet;
 import entities.Probleme;
 import entities.Solution;
 import javax.microedition.lcdui.Command;
@@ -42,15 +42,15 @@ public class Offre extends List implements CommandListener, Runnable {
     public void commandAction(Command c, Displayable d) {
 
         if (c == cmdExit) {
-            Crowdrise.Instance.disp.setCurrent(new Solutions());
+            CrowdriseMidlet.mMidlet.disp.setCurrent(new Solutions());
         }
         if (c == cmdback) {
-            Crowdrise.Instance.disp.setCurrent(new Solutions());
+            CrowdriseMidlet.mMidlet.disp.setCurrent(new Solutions());
         }
         if (c == List.SELECT_COMMAND) {
             form.append("L'Offre:\n");
             form.append(showOffre(this.getSelectedIndex()));
-            Crowdrise.Instance.disp.setCurrent(form);
+            CrowdriseMidlet.mMidlet.disp.setCurrent(form);
         }
     }
     Solution[] solution;

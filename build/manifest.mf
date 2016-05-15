@@ -1,4 +1,4 @@
-MIDlet-1: Projet, ,crowdrisemobile.Crowdrise
+MIDlet-1: Projet, ,crowdrisemobile.CrowdriseMidlet
 MIDlet-Vendor: Vendor
 MIDlet-Version: 1.0
 MIDlet-Name: CrowdriseMobile

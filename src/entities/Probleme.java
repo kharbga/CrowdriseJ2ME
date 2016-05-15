@@ -7,8 +7,6 @@ package entities;
 
 import java.util.Date;
 
-
-
 /**
  *
  * @author kouki
@@ -26,6 +24,7 @@ public class Probleme {
     private Date deadlineProbleme;
 
     private String fichierProbleme;
+    private String Categorie;
 
     private int MembreId;
 
@@ -92,7 +91,12 @@ public class Probleme {
         this.MembreId = MembreId;
     }
 
+    public String getCategorie() {
+        return Categorie;
+    }
 
-     
+    public void setCategorie(String Categorie) {
+        this.Categorie = Categorie;
+    }
 
 }

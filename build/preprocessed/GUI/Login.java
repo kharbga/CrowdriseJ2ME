@@ -5,7 +5,6 @@
  */
 package GUI;
 
-import GUI.Acceuil;
 
 import entities.Membre;
 import entityhandlers.MembreHandler;
@@ -21,7 +20,6 @@ import javax.microedition.lcdui.Display;
 import javax.microedition.lcdui.Displayable;
 import javax.microedition.lcdui.Form;
 import javax.microedition.lcdui.TextField;
-import javax.microedition.midlet.*;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -36,13 +34,13 @@ public class Login extends Form implements CommandListener, Runnable {
     Command cmdValider = new Command("valider", Command.SCREEN, 0);
     Command cmdInscription = new Command("Inscription", Command.SCREEN, 0);
     Command cmdBack = new Command("cmdBack", Command.BACK, 0);
-    Alert alerta = new Alert("Error", "Sorry", null, AlertType.ERROR);
+    Alert alerta = new Alert("Error", "Login ou mot de passe incorrect", null, AlertType.ERROR);
 
     Membre[] Membres;
 
     HttpConnection hc;
     DataInputStream dis;
-    String url = "http://localhost/PidevJ2ME/login.php";
+    String url = "http://localhost/parsing/login.php";
     StringBuffer sb = new StringBuffer();
     int ch;
 
@@ -58,8 +56,8 @@ public class Login extends Form implements CommandListener, Runnable {
 
     public void commandAction(Command c, Displayable d) {
         if (c == cmdValider) {
-            Thread th = new Thread(this);
-            th.start();
+   
+            run();
         }
         if (c == cmdBack) {
 
@@ -67,8 +65,8 @@ public class Login extends Form implements CommandListener, Runnable {
         }
         if (c == cmdInscription) {
 
-            GUI.Inscription form1 = new GUI.Inscription("Inscription", disp);
-            disp.setCurrent(form1);
+             
+            disp.setCurrent(new GUI.Inscription("Inscription", disp));
 
         }
     }
@@ -82,11 +80,11 @@ public class Login extends Form implements CommandListener, Runnable {
             parser.parse(dis, MembresHandler);
             Membres = MembresHandler.getMembre();
             if (Membres.length > 0) {
-                Acceuil form1 = new Acceuil("Inscription", disp);
-                disp.setCurrent(form1);
+                disp.setCurrent( new GUI.Menu("Menu", disp));
+                
             } else {
-                Acceuil form1 = new Acceuil("Inscription", disp);
-                disp.setCurrent(form1);
+                disp.setCurrent(alerta);
+                      
             }
         } catch (IOException ex) {
             ex.printStackTrace();

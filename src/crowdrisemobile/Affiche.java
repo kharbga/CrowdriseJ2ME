@@ -27,11 +27,11 @@ import javax.xml.parsers.SAXParserFactory;
 /**
  * @author Sedki
  */
-public class Affiche extends Form implements CommandListener, Runnable{
+public class Affiche extends MIDlet implements CommandListener, Runnable{
     
-        Display disp ;
+        Display disp = Display.getDisplay(this);
         
-        Form form1 = new Form("Modifier Profil");
+        Form form1 = new Form("Id Profil");
         Form f2 = new Form("Profil");
         
         Profil profils ;
@@ -50,18 +50,21 @@ public class Affiche extends Form implements CommandListener, Runnable{
         TextField TfId = new TextField("Id profil",null,3,TextField.NUMERIC);
         
         Command cmdValider = new Command("valider", Command.SCREEN, 0);
-
-    public Affiche(String title, Display d) {
-        super(title);
-        append(TfId);
-        addCommand(cmdValider);
-        setCommandListener(this);
-        f2.addCommand(cmdModifier);
-        f2.setCommandListener(this);
-        disp = d;
+        
+    public void startApp() {
+        
+        form1.append(TfId);
+        form1.addCommand(cmdValider);
+        form1.setCommandListener(this);
+        
+        disp.setCurrent(form1);
     }
 
-    
+    public void pauseApp() {
+    }
+
+    public void destroyApp(boolean unconditional) {
+    }
 
     public void commandAction(Command c, Displayable d) {
         if (c==cmdValider){
@@ -69,8 +72,7 @@ public class Affiche extends Form implements CommandListener, Runnable{
             th.start();
         }
         if (c==cmdModifier){ 
-              ProfilModifier form1 = new ProfilModifier("Modifier Profil", disp, Integer.parseInt(TfId.getString()));
-              disp.setCurrent(form1);
+            disp.setCurrent(new ProfilModifier().formModif);
         }
     }
 

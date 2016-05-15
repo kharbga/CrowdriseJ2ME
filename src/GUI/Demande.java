@@ -7,7 +7,7 @@ package GUI;
 
 import DAO.ProblemeDAO;
 import DAO.SolutionDAO;
-import crowdrisemobile.Crowdrise;
+import crowdrisemobile.CrowdriseMidlet;
 import entities.Probleme;
 import javax.microedition.lcdui.Alert;
 import javax.microedition.lcdui.AlertType;
@@ -49,7 +49,7 @@ public class Demande extends Form implements CommandListener, Runnable {
 
     public void commandAction(Command c, Displayable d) {
         if (c == cmdBack) {
-            Crowdrise.Instance.disp.setCurrent(new Solutions());
+            CrowdriseMidlet.mMidlet.disp.setCurrent(new Solutions());
         }
         if (c == cmdAdd) {
             Thread th = new Thread(this);
@@ -69,11 +69,11 @@ public class Demande extends Form implements CommandListener, Runnable {
         if (result) {
             alert.setType(AlertType.CONFIRMATION);
             alert.setString("Demande ajoutée");
-            Crowdrise.Instance.disp.setCurrent(alert,new Solutions());
+            CrowdriseMidlet.mMidlet.disp.setCurrent(alert,new Solutions());
         } else {
             alert.setType(AlertType.ERROR);
             alert.setString("ERREUR!");
-            Crowdrise.Instance.disp.setCurrent(alert);
+            CrowdriseMidlet.mMidlet.disp.setCurrent(alert);
         }
     }
     

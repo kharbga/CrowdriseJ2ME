@@ -5,10 +5,13 @@
  */
 package Splash;
 
+import GUI.Acceuil;
+import GUI.Login;
 import GUI.Solutions;
-import crowdrisemobile.Crowdrise;
+import crowdrisemobile.CrowdriseMidlet;
+import crowdrisemobile.CrowdriseMidlet;
 import java.io.IOException;
-import javax.microedition.lcdui.Canvas;
+import javax.microedition.lcdui.Canvas; 
 import javax.microedition.lcdui.Display;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
@@ -20,14 +23,15 @@ import javax.microedition.lcdui.Image;
 public class SplashScreen extends Canvas implements Runnable{
     
     private Image mImage;
-    private Crowdrise projectMIDlet;
     
-    public SplashScreen(Crowdrise projectMIDlet){
+    private static CrowdriseMidlet projectMIDlet;
+    private Display disp;
+    
+    public SplashScreen(CrowdriseMidlet projectMIDlet){
         this.projectMIDlet = projectMIDlet;
         try{
         mImage = Image.createImage("Splash/img.jpg");
-        Thread t = new Thread(this);
-        t.start();
+       
         }
         catch(IOException e){
             e.printStackTrace();
@@ -50,7 +54,9 @@ public class SplashScreen extends Canvas implements Runnable{
      */
     public void dismiss() {
         if (isShown())
-            Display.getDisplay(projectMIDlet).setCurrent(new Solutions());
+        Display.getDisplay(projectMIDlet).setCurrent(new Login("Acceuil", disp)); 
+
+       
 
     }
     /**
@@ -58,7 +64,7 @@ public class SplashScreen extends Canvas implements Runnable{
      */
     public void run() {
         try {
-            Thread.sleep(3000);//set for 3 seconds
+            Thread.sleep(4000);//set for 6 seconds
         }
         catch (InterruptedException e) {
             System.out.println("InterruptedException");
