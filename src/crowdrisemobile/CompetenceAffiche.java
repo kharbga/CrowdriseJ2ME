@@ -27,7 +27,7 @@ import javax.xml.parsers.SAXParserFactory;
 /**
  * @author Sedki
  */
-public class Affiche extends Form implements CommandListener, Runnable{
+public class CompetenceAffiche extends Form implements CommandListener, Runnable{
     
         Display disp ;
         
@@ -51,7 +51,7 @@ public class Affiche extends Form implements CommandListener, Runnable{
         
         Command cmdValider = new Command("valider", Command.SCREEN, 0);
 
-    public Affiche(String title, Display d) {
+    public CompetenceAffiche(String title, Display d) {
         super(title);
         append(TfId);
         addCommand(cmdValider);
@@ -69,7 +69,7 @@ public class Affiche extends Form implements CommandListener, Runnable{
             th.start();
         }
         if (c==cmdModifier){ 
-              ProfilModifier form1 = new ProfilModifier("Modifier Profil", disp, Integer.parseInt(TfId.getString()));
+              ProfilModifier form1 = new ProfilModifier("Modifier Competence", disp, Integer.parseInt(TfId.getString()));
               disp.setCurrent(form1);
         }
     }

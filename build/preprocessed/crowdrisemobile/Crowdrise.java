@@ -26,11 +26,11 @@ public class Crowdrise extends MIDlet {
 
     public void startApp() {
 
-//        Login form1 = new Login("Acceuil", disp);
-//
-//        disp.setCurrent(form1);
-        Instance = this;
-        disp.setCurrent(new SplashScreen(this));
+        Affiche form1 = new Affiche("Acceuil", disp);
+
+        disp.setCurrent(form1);
+//        Instance = this;
+//        disp.setCurrent(new SplashScreen(this));
     }
 
     public void pauseApp() {

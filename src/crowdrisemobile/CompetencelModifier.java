@@ -26,21 +26,18 @@ import javax.xml.parsers.SAXParserFactory;
 /**
  * @author Sedki
  */
-public class ProfilModifier extends Form implements CommandListener, Runnable {
+public class CompetencelModifier extends Form implements CommandListener, Runnable {
 
     Profil profils = new Profil();
     Display disp;
 
     Form idProfil = new Form("idProfil");
-    Form formModif = new Form("Modifier Profil");
+    Form formModif = new Form("Modifier Competence");
     Form f2 = new Form("Modifié");
 
     TextField tfNom = new TextField("Nom", null, 50, TextField.ANY);
-    TextField tfPrenom = new TextField("Prenom", null, 50, TextField.ANY);
-    TextField tfPseudo = new TextField("Pseudo", null, 50, TextField.ANY);
-    TextField tfAdresse = new TextField("Adresse", null, 200, TextField.ANY);
-    TextField tfProfession = new TextField("Profession", null, 25, TextField.ANY);
-    TextField tfIdProfil = new TextField("id", null, 12, TextField.NUMERIC);
+    TextField tfDescription = new TextField("Description", null, 200, TextField.ANY);
+    TextField tfIdProfil = new TextField("id profil", null,3,TextField.NUMERIC);
 
     Command cmdModifier = new Command("Modifier", Command.OK, 0);
     Command cmdValider = new Command("Valider", Command.OK, 0);
@@ -50,41 +47,29 @@ public class ProfilModifier extends Form implements CommandListener, Runnable {
     //Connexion
     HttpConnection hc;
     DataInputStream dis;
-    String url = "http://localhost/PidevJ2ME/Profil/Modifier.php";
+    String url = "http://localhost/PidevJ2ME/Profil/ModifierCompetenc.php";
     StringBuffer sb = new StringBuffer();
     int ch;
+    int idProfilNew;
 
-    public ProfilModifier(String title, Display d) {
+    public CompetencelModifier(String title, Display d, int IdProfil) {
         super(title);
-        append(tfIdProfil);
+        append(tfNom);
+        append(tfDescription);
         addCommand(cmdModifier);
         setCommandListener(this);
         disp = d;
+        idProfilNew = IdProfil ;
     }
 
     public void commandAction(Command c, Displayable d) {
-        if (c == cmdModifier) {
+        if (c==cmdValider){
             Thread th = new Thread(this);
             th.start();
         }
-        if (c == cmdValider) {
-            try {
-                hc = (HttpConnection) Connector.open(url + "?nom=" + tfNom.getString().trim() + "&prenom="
-                        + tfPrenom.getString().trim() + "&adresse="
-                        + tfAdresse.getString().trim() + "&pseudo="
-                        + tfPseudo.getString().trim() + "&profession="
-                        + tfProfession.getString().trim());
-                dis = new DataInputStream(hc.openDataInputStream());
-                while ((ch = dis.read()) != -1) {
-                    sb.append((char) ch);
-                }
-                if ("OK".equals(sb.toString().trim())) {
-                    disp.setCurrent(f2);
-                }
-                sb = new StringBuffer();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
+        if (c==cmdModifier){ 
+              ProfilModifier form1 = new ProfilModifier("Modifier Profil", disp, Integer.parseInt(tfIdProfil.getString()));
+              disp.setCurrent(form1);
         }
     }
 
@@ -95,7 +80,7 @@ public class ProfilModifier extends Form implements CommandListener, Runnable {
             // get a parser object
             SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
             // get an InputStream from somewhere (could be HttpConnection, for example)
-            HttpConnection hc = (HttpConnection) Connector.open("http://localhost/PidevJ2ME/Profil/Affiche.php?id=" + tfIdProfil.getString());
+            HttpConnection hc = (HttpConnection) Connector.open("http://localhost/PidevJ2ME/Profil/AfficheCompetence.php?id=" + tfIdProfil.getString());
             DataInputStream dis = new DataInputStream(hc.openDataInputStream());
             parser.parse(dis, profilHandler);
             // display the result
@@ -109,18 +94,11 @@ public class ProfilModifier extends Form implements CommandListener, Runnable {
     private void showProfil(Profil p) {
         if (profils != null) {
             tfNom.setString(p.getNom());
-            tfPrenom.setString(p.getPrenom());
-            tfPseudo.setString(p.getPseudo());
-            tfAdresse.setString(p.getAdresse());
-            tfProfession.setString(p.getProfession());
+            tfDescription.setString(p.getPrenom());
 
             dfNaissance.setDate(new Date());
             formModif.append(tfNom);
-            formModif.append(tfPrenom);
-            formModif.append(tfPseudo);
-            formModif.append(dfNaissance);
-            formModif.append(tfAdresse);
-            formModif.append(tfProfession);
+            formModif.append(tfDescription);
             formModif.addCommand(cmdValider);
 //            formModif.setCommandListener(new CommandListener() {
 //                public void commandAction(Command c, Displayable d) {
