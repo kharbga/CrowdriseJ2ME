@@ -2,15 +2,13 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-<<<<<<< HEAD
         <group>
-            <file>file:/C:/Users/Sedki/Documents/NetBeansProjects/PidevJ2me/src/crowdrisemobile/ProfilModifier.java</file>
-            <file>file:/C:/Users/Sedki/Documents/NetBeansProjects/PidevJ2me/src/crowdrisemobile/Affiche.java</file>
-            <file>file:/C:/Users/Sedki/Documents/NetBeansProjects/PidevJ2me/src/crowdrisemobile/Notification.java</file>
-            <file>file:/C:/Users/Sedki/Documents/NetBeansProjects/PidevJ2me/src/entityhandlers/ProfilHandler.java</file>
+            <file>file:/C:/Users/asalhi/Documents/NetBeansProjects/Java_ME_Projects/PidevJ2me-master/src/GUI/Contact.java</file>
+            <file>file:/C:/Users/asalhi/Documents/NetBeansProjects/Java_ME_Projects/PidevJ2me-master/src/GUI/Login.java</file>
+            <file>file:/C:/Users/asalhi/Documents/NetBeansProjects/Java_ME_Projects/PidevJ2me-master/src/crowdrisemobile/CrowdriseMidlet.java</file>
+            <file>file:/C:/Users/asalhi/Documents/NetBeansProjects/Java_ME_Projects/PidevJ2me-master/src/GUI/Menu.java</file>
+            <file>file:/C:/Users/asalhi/Documents/NetBeansProjects/Java_ME_Projects/PidevJ2me-master/src/GUI/Inscription.java</file>
+            <file>file:/C:/Users/asalhi/Documents/NetBeansProjects/Java_ME_Projects/PidevJ2me-master/src/Splash/SplashScreen.java</file>
         </group>
-=======
-        <group/>
->>>>>>> 208f1198e9198b99e1e781045d11c75580c3c5e4
     </open-files>
 </project-private>

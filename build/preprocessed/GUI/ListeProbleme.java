@@ -24,22 +24,22 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 /**
+ * @author asalhi
  *
- * @author kouki
  */
 public class ListeProbleme extends Form implements CommandListener, Runnable {
 
     Display disp;
-    Command cmdParse = new Command("Demandes", Command.SCREEN, 0);
+
     Command cmdBack = new Command("Back", Command.BACK, 0);
-    Command cmdSol = new Command("Solution", Command.OK, 0);
+
     Command cmdDelete = new Command("Supprimer", Command.OK, 0);
-    Command cmdModif = new Command("Modifier", Command.OK, 0);
+
     Probleme[] problem;
-    List lst = new List("Demandes", List.IMPLICIT);
-    
-    Form form = new Form("Infos Demande");
-    Form loadingDialog = new Form("Please Wait");
+    List lst = new List("Liste des Problèmes", List.IMPLICIT);
+
+    Form form = new Form("Détails Problème");
+
     StringBuffer sb = new StringBuffer();
 
     Alert alerta;
@@ -47,50 +47,45 @@ public class ListeProbleme extends Form implements CommandListener, Runnable {
     public ListeProbleme(String title, Display d) {
         super(title);
         disp = d;
-        
-        append("Cliquer pour afficher la liste des demandes");
-        addCommand(cmdParse);
-        setCommandListener(this);
-        lst.setCommandListener(this);
-        lst.addCommand(cmdBack);
-        lst.addCommand(cmdSol);
-        form.addCommand(cmdDelete);
-        Command cmdModif = new Command("Modifier", Command.OK, 0);
+
         form.addCommand(cmdBack);
+        form.addCommand(cmdDelete);
         form.setCommandListener(this);
+        
+        lst.addCommand(cmdBack);
+        lst.setCommandListener(this);
+        Thread th = new Thread(this);
+        th.start();
+      //  disp.setCurrent(lst);
+
     }
 
     public void commandAction(Command c, Displayable d) {
 
-        if (c == cmdParse) {
-            disp.setCurrent(loadingDialog);
-            Thread th = new Thread(this);
-            th.start();
-        }
+        if (c == cmdDelete && d == form) {
 
-        if (c == cmdDelete) {
-             
             deleteProb();
             disp.setCurrent(lst);
 
         }
+
+        if (c == cmdBack && d == form) {
+            
+            form.deleteAll();
+            disp.setCurrent(lst);
+        }
+
         if (c == List.SELECT_COMMAND) {
             form.append("Informations Demandes: \n");
             form.append(showProbs(lst.getSelectedIndex()));
             disp.setCurrent(form);
         }
-            if (c == cmdBack && d == lst) {
-                lst.deleteAll();
-                disp.setCurrent(form);
-            }
-            if (c == cmdBack && d == form) {
-                form.deleteAll();
-                disp.setCurrent(lst);
-            }
-
+        if (c == cmdBack && d == lst) {
+             
+            disp.setCurrent(new Menu());
         }
 
-    
+    }
 
     public void run() {
         try {

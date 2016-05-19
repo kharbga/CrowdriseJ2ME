@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import crowdrisemobile.CrowdriseMidlet;
 import javax.microedition.lcdui.Command;
 import javax.microedition.lcdui.CommandListener;
 import javax.microedition.lcdui.Display;
@@ -12,54 +13,58 @@ import javax.microedition.lcdui.Displayable;
 import javax.microedition.lcdui.Form;
 import javax.microedition.lcdui.List;
 
-import GUI.*;
 
 /**
  *
- * @author kouki
+ * @author asalhi
  */
-public class Menu extends Form implements CommandListener, Runnable {
-
-    Display dis;
-    
-    Contact Contact;
-
-    Command cmdProjet = new Command("Projet", Command.OK, 0);
-    Command cmdProbleme = new Command("Probleme", Command.OK, 1);
-    Command cmdSolution = new Command("Solution", Command.OK, 2);
-    Command cmdContact = new Command("Contact", Command.OK, 3);
-
-    public Menu(String title, Display d) {
-        super(title);
-        dis = d;
-
+public class Menu extends List implements CommandListener, Runnable {
+  
+    Display disp ;
+    List lst = new List("Menu", List.IMPLICIT);
+ 
+    public Menu() {
+        super("Menu", List.IMPLICIT);
+          
+         lst.append("Gestion Projet", null);
+        lst.append("Gestion Probleme", null);
+        lst.append("Gestion Solution", null);
+        lst.append("Contact", null);
+         
+        lst.setCommandListener(this);
+        disp.setCurrent(lst);
+        
+         Thread th = new Thread(this);
+        th.start();
+        
+       // public static Display getDisplay(MIDlet midlet);
     }
 
     public void commandAction(Command c, Displayable d) {
-        if (c == cmdProjet) {
-            dis.setCurrent(new ListeProjet("Liste Projet", dis));
+    if(c==List.SELECT_COMMAND)
+        {
+            switch(lst.getSelectedIndex())
+			{
+			case 0:
+				CrowdriseMidlet.mMidlet.disp.setCurrent(new ListeProjet("ListeProjet", disp)); 
+				break;
+			case 1:
+				CrowdriseMidlet.mMidlet.disp.setCurrent(new ListeProbleme("Liste Probleme", disp));
+				break;
+			case 2:
+				CrowdriseMidlet.mMidlet.disp.setCurrent(new Offre("offre"));
+			case 3:
+				CrowdriseMidlet.mMidlet.disp.setCurrent(new Contact("contact", disp));
+				break;
+			 
+			}
         }
-
-        if (c == cmdProbleme) {
-            dis.setCurrent(new ListeProbleme("Liste Probleme", dis));
-        }
-//       if (c == cmdSolution) {
-//            dis.setCurrent(new ("Liste solution", dis));
-//        }
-  if (c == cmdContact) {
-            dis.setCurrent(new Contact("Liste solution", dis));
-        }
-  
-//  if (c == Map && d == Contact) {   // change to midlet and test if disp=contactform
-//            dis.setCurrent(new GoogleMapsZoomCanvas(this, dis));
-//        }
-
 }
  
     
 
     public void run() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         //
     }
 
 }

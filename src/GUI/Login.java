@@ -6,6 +6,7 @@
 package GUI;
 
 
+import crowdrisemobile.CrowdriseMidlet;
 import entities.Membre;
 import entityhandlers.MembreHandler;
 import java.io.DataInputStream;
@@ -26,14 +27,14 @@ import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.SAXException;
 
 public class Login extends Form implements CommandListener, Runnable {
-
+ 
     Display disp;
 
     TextField tfauthentifiant = new TextField("Authentifiant", null, 100, TextField.ANY);
     TextField tfpass = new TextField("Mot de passe", null, 100, TextField.PASSWORD);
-    Command cmdValider = new Command("valider", Command.SCREEN, 0);
+    Command cmdValider = new Command("Valider", Command.SCREEN, 0);
     Command cmdInscription = new Command("Inscription", Command.SCREEN, 0);
-    Command cmdBack = new Command("cmdBack", Command.BACK, 0);
+    Command cmdBack = new Command("Back", Command.BACK, 0);
     Alert alerta = new Alert("Error", "Login ou mot de passe incorrect", null, AlertType.ERROR);
 
     Membre[] Membres;
@@ -56,8 +57,8 @@ public class Login extends Form implements CommandListener, Runnable {
 
     public void commandAction(Command c, Displayable d) {
         if (c == cmdValider) {
-   
-            run();
+    disp.setCurrent( new Menu());
+            //run();
         }
         if (c == cmdBack) {
 
@@ -80,7 +81,7 @@ public class Login extends Form implements CommandListener, Runnable {
             parser.parse(dis, MembresHandler);
             Membres = MembresHandler.getMembre();
             if (Membres.length > 0) {
-                disp.setCurrent( new GUI.Menu("Menu", disp));
+               disp.setCurrent( new Menu());
                 
             } else {
                 disp.setCurrent(alerta);

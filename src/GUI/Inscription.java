@@ -46,8 +46,8 @@ public class Inscription extends Form implements CommandListener, Runnable {
     Alert alerta = new Alert("Error", "Les mots de passe ne sont pas identiques", null, AlertType.ERROR);
     Alert alerta2 = new Alert("Error", "Veuillez Remplir tout les champs", null, AlertType.ERROR);
 
-    Command cmdValider = new Command("valider", Command.SCREEN, 0);
-    Command cmdBack = new Command("cmdBack", Command.BACK, 0);
+    Command cmdValider = new Command("Valider", Command.SCREEN, 0);
+    Command cmdBack = new Command(" Back", Command.BACK, 0);
 
     public Inscription(String title, Display d) {
         super(title);

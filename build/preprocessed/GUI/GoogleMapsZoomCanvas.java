@@ -14,6 +14,10 @@ import com.jappit.midmaps.googlemaps.GoogleMapsMarker;
 import com.jappit.midmaps.googlemaps.GoogleStaticMap;
 import com.jappit.midmaps.googlemaps.GoogleStaticMapHandler;
 
+/**
+ *
+ * @author asalhi
+ */
 public class GoogleMapsZoomCanvas extends GoogleMapsTestCanvas implements GoogleStaticMapHandler
 {
 	GoogleMaps gMaps = null;

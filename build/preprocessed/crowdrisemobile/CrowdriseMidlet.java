@@ -5,11 +5,12 @@
  */
 package crowdrisemobile;
 
+import GUI.Contact;
+import GUI.Demande;
+import GUI.ListeProbleme;
 import GUI.Login;
+import GUI.Offre;
 import GUI.Solutions;
-import Splash.SplashScreen;
-import java.io.DataInputStream;
-import javax.microedition.io.HttpConnection;
 import javax.microedition.lcdui.Command;
 import javax.microedition.lcdui.Display;
 import javax.microedition.lcdui.Displayable;
@@ -18,7 +19,7 @@ import javax.microedition.midlet.*;
 /**
  * @author kouki
  */
-public class CrowdriseMidlet extends MIDlet {
+public class CrowdriseMidlet extends MIDlet{
 
     public Display disp;
     public static CrowdriseMidlet mMidlet;
@@ -31,9 +32,8 @@ public class CrowdriseMidlet extends MIDlet {
     public void startApp() {
 
        
-        disp.setCurrent(new Login("login",disp));
-       
-
+      disp.setCurrent(new Contact("Login", disp));
+       //disp.setCurrent(new Demande("test3"));
     }
 
     public void pauseApp() {

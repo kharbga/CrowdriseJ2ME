@@ -12,6 +12,10 @@ import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.List;
 import javax.microedition.midlet.MIDlet;
 
+/**
+ *
+ * @author asalhi
+ */
 abstract public class GoogleMapsTestCanvas extends Canvas implements CommandListener
 {
 	Command back;

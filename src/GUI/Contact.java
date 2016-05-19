@@ -8,6 +8,7 @@ package GUI;
 /**
  * @author asalhi
  */
+import crowdrisemobile.CrowdriseMidlet;
 import java.io.IOException;
 import javax.microedition.io.*;
 import javax.microedition.lcdui.*;
@@ -82,7 +83,9 @@ public class Contact extends Form implements CommandListener, Runnable {
             //destroyApp(false);
         }
         
-        
+        if (cmd == Map) {   
+            display.setCurrent(new GoogleMapsZoomCanvas(CrowdriseMidlet.mMidlet, disp));
+        }
         
          if (cmd == send) {
 
